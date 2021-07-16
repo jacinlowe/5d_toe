@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      5d tac toe
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,8 +13,34 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
+  <!-- <div id="container">
     <strong>Ready to create an app?</strong>
     <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  </div> -->
+<div class="grid-container">
+  <ion-button  class="grid-item" expand="block" fill="solid"  *ngFor="let item of this.grid, index as id" (click)="presentPopover($event, id)">
+    {{item.position}}
+    <!-- Last State -->
+    <!-- <p *ngIf="dataReturned && item.position === dataReturned.id" [ngStyle]="{'font-size': (dataReturned.item* 15) + 'px'}">x</p> -->
+    <!-- <p *ngIf="dataReturned && item.id === dataReturned.id; else lastState" [ngStyle]="{'font-size': (dataReturned.item* 15) + 'px'}">x</p> -->
+
+      <p *ngIf="item.lastState && item.lastState.position === id" [ngStyle]="{'font-size': (item.lastState.size* 15) + 'px'}">{{item.lastState.letter}}</p>
+
+  </ion-button >
+</div>
+
+<div class="grid-container">
+  <div>
+    <h2>Player</h2>
+    <h2 *ngFor="let item of sizes; index as id">(x,{{item}})</h2>
   </div>
+</div>
+
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>Footer</ion-title>
+  </ion-toolbar>
+</ion-footer>

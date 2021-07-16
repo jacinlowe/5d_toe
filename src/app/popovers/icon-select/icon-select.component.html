@@ -1,0 +1,10 @@
+<ion-card class="icon-select-modal">
+  <ion-card-content>
+    <div *ngFor="let item of sizes; index as id">
+      <ion-button (click)="closePopover(item)" expand="block" fill="clear" shape="round">
+        {{item}}
+      </ion-button>
+
+    </div>
+  </ion-card-content>
+</ion-card>

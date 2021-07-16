@@ -25,3 +25,28 @@
 #container a {
   text-decoration: none;
 }
+
+ion-footer{
+  ion-title{
+  align-content: center;
+  justify-content: center;
+  margin: auto;
+  width: 50%;
+  }
+}
+ion-content{
+  .grid-container{
+    display: grid;
+    grid-gap: 50px;
+    grid-template-columns: 200px 200px auto;
+    padding: 10px;
+
+  }
+  .grid-item {
+    $size: 200px;
+    font-size: 1rem;
+    text-align: center;
+    width: $size;
+    height: $size;
+  }
+}
