@@ -8,7 +8,7 @@ import { IconSelectComponent } from '../popovers/icon-select/icon-select.compone
 
 export interface State {
   position: number;
-  letter: string;
+  letter: 'X' | 'O';
   size: number;};
 
 export interface Grid{
@@ -24,9 +24,11 @@ export interface Grid{
 export class HomePage implements OnInit {
 
 cells = [...Array(9).keys()];
-sizes = [1,2,3,4,5];
+sizes = [...Array(7).keys()].map((nums) => nums + 1);
 dataReturned: any;
-playerLetter = 'x';
+playerLetter = 'X';
+xIsNext: boolean;
+winner = null;
 
 private _grid: Grid[];
 public get grid(): Grid[] {
@@ -45,16 +47,17 @@ public set grid(value: Grid[]) {
     private logic: GameLogicService,
   ) {}
     ngOnInit(){
-      this.grid = this.cells.map((items) => (
-        { position: items,
-          // lastState:{
-          //   position: items,
-          //   letter:'x',
-          //   size: Math.floor(Math.random() *(6 - 1) + 1) }
-           }));
-      // console.log(this.grid);
+      this.createGrid();
     }
+    get player(){
+      return this.xIsNext? 'X':'O';
+    }
+    createGrid(){
+      this.grid = this.cells.map((items) => (
+        { position: items, }
+        ));
 
+    }
     async presentPopover(ev: any, i: number){
       const data = {id: i, sizes: this.sizes};
       const popover = await this.popoverController.create({
@@ -69,7 +72,7 @@ public set grid(value: Grid[]) {
       popover.onDidDismiss().then((dataReturned) => {
         if (i !== undefined){
           this.setLastState(dataReturned, i);
-
+          this.xIsNext = !this.xIsNext;
         }
 
       }).catch((error) =>{
@@ -81,11 +84,12 @@ public set grid(value: Grid[]) {
 
     setLastState(popoverData: any, id: number){
       if(popoverData !== null){
-        this.grid[id].lastState = {position: popoverData.data.id, letter: this.playerLetter, size: popoverData.data.item };
+        this.grid[id].lastState = {position: popoverData.data.id, letter: this.player, size: popoverData.data.item };
         this.removeUsedSize(popoverData.data.item);
-        this.logic.checkForWinState(this.grid);
+        this.winner = this.logic.checkForWinState(this.grid);
       }
 
+      this.autoReset();
     }
     removeUsedSize(size: number){
       if (this.sizes.includes(size)){
@@ -95,5 +99,22 @@ public set grid(value: Grid[]) {
 
       }
 
+    }
+    autoReset(){
+      if (this.winner){
+        console.log('game will reset' );
+        setTimeout(() => {
+
+          this.resetGame();
+        }, 2500);
+      }
+    }
+    resetGame(){
+      console.log('game reset');
+      this.logic.resetStates();
+      this.winner = null;
+      this.sizes = [...Array(7).keys()].map((nums) => nums + 1);
+      this.cells = [...Array(9).keys()];
+      this.createGrid();
     }
 }
