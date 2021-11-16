@@ -49,7 +49,7 @@ export class GameLogicService {
         squares[a].lastState.letter === squares[b].lastState.letter &&
         squares[a].lastState.letter === squares[c].lastState.letter
       ){
-        console.log('you did it');
+        console.log('you did it', squares[a].lastState.letter);
         return squares[a].lastState.letter;
       }
 

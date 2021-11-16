@@ -14,34 +14,46 @@
   </ion-header>
   <div *ngIf="winner">Player {{winner}} won the game!</div>
   <h1>Current Player: {{player}}</h1>
-<div class="grid-container">
-  <ion-button  class="grid-item" expand="block" fill="solid"  *ngFor="let item of this.grid, index as id" (click)="presentPopover($event, id)">
-    <!-- {{item.position}} -->
-    <!-- Last State -->
-    <!-- <p *ngIf="dataReturned && item.position === dataReturned.id" [ngStyle]="{'font-size': (dataReturned.item* 15) + 'px'}">x</p> -->
-    <!-- <p *ngIf="dataReturned && item.id === dataReturned.id; else lastState" [ngStyle]="{'font-size': (dataReturned.item* 15) + 'px'}">x</p> -->
 
-      <p *ngIf="item.lastState && item.lastState.position === id" [ngStyle]="{'font-size': (item.lastState.size* 15) + 'px'}">{{item.lastState.letter}}</p>
+  <ion-grid class="gameboard">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="6" *ngFor="let item of this.grid, index as id">
+        <ion-button class="grid-item" expand="block" fill="solid" (click)="presentPopover($event, id)">
+          <!-- {{item.position}} -->
+          <!-- Last State -->
+          <!-- <p *ngIf="dataReturned && item.position === dataReturned.id" [ngStyle]="{'font-size': (dataReturned.item* 15) + 'px'}">x</p> -->
+          <!-- <p *ngIf="dataReturned && item.id === dataReturned.id; else lastState" [ngStyle]="{'font-size': (dataReturned.item* 15) + 'px'}">x</p> -->
 
-  </ion-button >
-  <!-- <app-squares *ngFor="let val of this.grid; let i = index" [value]='val.position'></app-squares> -->
-</div>
+          <p *ngIf="item.lastState && item.lastState.position === id"
+            [ngStyle]="{'font-size': (item.lastState.size* 15) + 'px'}">{{item.lastState.letter}}</p>
 
-<div class="grid-container">
-  <div>
-    <h2>Player</h2>
-    <h2 class="grid" *ngFor="let item of sizes; index as id">(x,{{item}})</h2>
-  </div>
-  <ion-button (click)="resetGame()" expand="block" fill="solid" shape="round">
+        </ion-button>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <ion-button class="reset-btn" (click)="resetGame()" expand="block" fill="solid" shape="round">
     Reset Game
   </ion-button>
-</div>
+  <ion-card>
+    <ion-text color="primary">
+      <h1>Player</h1>
+    </ion-text>
 
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="4" *ngFor="let item of sizes; index as id">(x,{{item}})</ion-col>
+
+
+      </ion-row>
+    </ion-grid>
+  </ion-card>
 
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
-    <ion-title>Footer</ion-title>
+    <!-- <ion-title>Footer</ion-title> -->
   </ion-toolbar>
 </ion-footer>

@@ -92,10 +92,13 @@ public set grid(value: Grid[]) {
       this.autoReset();
     }
     removeUsedSize(size: number){
-      if (this.sizes.includes(size)){
-        const index = this.sizes.indexOf(size);
+      if (this.sizes.includes(size)) {
+        if (this.xIsNext) {
+          const index = this.sizes.indexOf(size);
 
-        this.sizes.splice(index, 1);
+          this.sizes.splice(index, 1);
+
+        }
 
       }
 
