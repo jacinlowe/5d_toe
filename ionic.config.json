@@ -1,5 +1,7 @@
 {
-  "name": "5d_toe",
-  "integrations": {},
+  "name": "7_Tac_Toe",
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
